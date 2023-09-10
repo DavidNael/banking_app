@@ -14,4 +14,5 @@ class ColorManager {
   static Color black26 = const Color(0x42000000);
   static Color transparent = const Color(0x00000000);
   static Color error = const Color(0xFFe61f34);
+  static Color success = const Color(0xFF009E10);
 }

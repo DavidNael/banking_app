@@ -1,3 +1,4 @@
+import 'package:faker/faker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -56,11 +57,11 @@ class CustomerDatabaseManager {
       await db.insert(
         customerTable,
         CustomerModel(
-          name: 'Customer ${i + 1}',
-          email: 'email${i + 1}@email.com',
-          address: 'Egypt',
-          phone: '0123456789',
-          balance: (i + 1) * 1000,
+          name: Faker().person.firstName(),
+          email: '${Faker().person.firstName()}@example.com',
+          address: Faker().address.country(),
+          phone: "0123456789",
+          balance: Faker().randomGenerator.decimal(min: 100, scale: 10000).roundToDouble(),
           image: 'https://picsum.photos/200/300',
         ).toJson(),
       );
@@ -71,9 +72,9 @@ class CustomerDatabaseManager {
       customerTable,
       CustomerModel(
         name: 'Main User',
-        email: 'mainuser@email.com',
-        address: 'Egypt',
-        phone: '0123456789',
+        email: 'mainuser@example.com',
+        address: Faker().address.country(),
+        phone: Faker().phoneNumber.us(),
         balance: 10000,
         image: 'https://picsum.photos/200/300',
       ).toJson(),

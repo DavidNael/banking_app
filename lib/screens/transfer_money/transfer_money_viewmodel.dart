@@ -1,5 +1,6 @@
 import 'package:banking_app/Database/transaction_database.dart';
 import 'package:banking_app/models/transaction_model.dart';
+import 'package:banking_app/screens/resources/color_manager.dart';
 import 'package:banking_app/screens/resources/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,6 +59,12 @@ class TransferMoneyViewModel with ChangeNotifier {
   Future<bool> transferMoney(BuildContext context, CustomerModel sender,
       CustomerModel receiver, double amount) async {
     if (sender.balance < amount) {
+      CustomWidgets.showToast(
+        text: 'Not Enough Money For Transaction',
+        backgroundColor: ColorManager.error,
+      );
+
+      Navigator.popUntil(context, (route) => route.isFirst);
       return false;
     }
     final customerDb = CustomerDatabaseManager.instance;
@@ -76,6 +83,7 @@ class TransferMoneyViewModel with ChangeNotifier {
       context.read<HomePageViewModel>().getUser();
       CustomWidgets.showToast(
         text: 'Money Transferred Successfully',
+        backgroundColor: ColorManager.success,
       );
 
       Navigator.popUntil(context, (route) => route.isFirst);
